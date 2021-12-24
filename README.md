@@ -1,13 +1,17 @@
-# [GroupID] Title of your final project
+# [Group 3] Sberbank Russian Housing Market
 
 ### Groups
-* name, student ID1
-* name, student ID2
-* name, student ID3
-* ...
+*柯敦瀚	統計四	107304050*
+*陳羿丞	資科碩一	110753138*
+*蘇俊憲	資科碩一	110753158*
+*朱進益	資科碩一	110753144*
+*洪丞桀	資科三	108703045*
+
 
 ### Goal
-A breif introduction about your project, i.e., what is your goal?
+Housing costs demand a significant investment from both consumers and developers. And when it comes to planning a budget—whether personal or corporate—the last thing anyone needs is uncertainty about one of their biggets expenses. Sberbank, Russia’s oldest and largest bank, helps their customers by making predictions about realty prices so renters, developers, and lenders are more confident when they sign a lease or purchase a building.
+
+Although the housing market is relatively stable in Russia, the country’s volatile economy makes forecasting prices as a function of apartment characteristics a unique challenge. Complex interactions between housing features such as number of bedrooms and location are enough to make pricing predictions complicated. Adding an unstable economy to the mix means Sberbank and their customers need more than simple regression models in their arsenal.
 
 ### Demo 
 You should provide an example commend to reproduce your result
