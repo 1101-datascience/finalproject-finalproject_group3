@@ -108,16 +108,6 @@ traindata %>%
   geom_histogram(fill='red', bins=10) + 
   ggtitle('Distribution of build year')
 
-# mean price between build year
-traindata$timestamp <- as.Date(traindata$timestamp)
-
-traindata %>%
-  group_by(timestamp) %>%
-  summarize(med_price = median(price_doc)) %>%
-  ggplot(aes(x = timestamp, y = med_price)) +
-  geom_line(color = 'red') +
-  geom_smooth(method = 'lm', color = 'grey', alpha = 0.7) + 
-  ggtitle('Daily median price over time')
-
+write.csv(traindata, "fixTest.csv")
 
 
