@@ -1,14 +1,12 @@
 #Rscript DSfinal2-xgbfix.R
-library(ggplot2) # Data visualization
-library(readr) # CSV file I/O, e.g. the read_csv function
+
+library(ggplot2)
+library(readr)
 library(data.table)
 library(lubridate)
 library(caret)
 library(xgboost)
 library(methods)
-
-# Input data files are available in the "../input/" directory.
-# For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory
 
 traindata <- fread("input/fixTrain.csv",stringsAsFactors=TRUE)
 testdata <- fread("input/fixTest.csv",stringsAsFactors=TRUE)
@@ -30,11 +28,10 @@ traintest_womacro <- rbind(traindata,testdata)
 data.macro$child_on_acc_pre_school <- as.numeric(factor(toString(data.macro$child_on_acc_pre_school)))
 data.macro$modern_education_share  <- as.numeric(factor(toString(data.macro$modern_education_share )))
 data.macro$old_education_build_share <- as.numeric(factor(toString(data.macro$old_education_build_share)))
-print("2")
-#Merge the Macro Economic Data
+
 traintest <- as.data.table(merge(traintest_womacro, data.macro, by="timestamp", all.x=TRUE));gc()
 traintest_id <- traintest$id
-print("3")
+
 # Convert datevalues to individual components
 traintest$timestamp <- as.POSIXct(traintest$timestamp)
 
@@ -100,17 +97,46 @@ xgb_params = list(booster="gbtree",
                   colsample_bytree= 0.7,
                   subsample = 0.7,
                   eta = 0.05,
-                  objective= 'reg:linear',
-                  max_depth= 5,
+                  objective= 'reg:squarederror',
+                  max_depth= 4,#4
                   min_child_weight= 1,
-                  eval_metric= "rmse")
+                  eval_metric= "rmsle")#rmsle
 
+#5-fold validation
+cv.model = xgb.cv(
+  params = xgb_params,
+  data = dtrain,
+  nfold = 5,
+  nrounds=400,#400
+  early_stopping_rounds = 150,
+  print_every_n = 100
+)
+
+tmp = cv.model$evaluation_log
+
+plot(x=1:nrow(tmp), y= tmp$train_rmsle_mean, col='red', xlab="nround", ylab="rmsle", main="Avg.Performance in CV") 
+points(x=1:nrow(tmp), y= tmp$test_rmsle_mean, col='blue') 
+legend("topright", pch=1, col = c("red", "blue"), 
+       legend = c("Train", "Validation") )
+
+best.nrounds = cv.model$best_iteration
+#print(best.nrounds)
+print(paste("best nround:", best.nrounds))
+
+# xgb_params = list(booster="gbtree",
+#                   colsample_bytree= 0.7,
+#                   subsample = 0.7,
+#                   eta = 0.05,
+#                   objective= 'reg:squarederror',#
+#                   max_depth= 5,
+#                   min_child_weight= 1,
+#                   eval_metric= "rmsle")#
 
 gbdt = xgb.train(params = xgb_params,
                  data = dtrain,
-                 nrounds = 300,
+                 nrounds = best.nrounds,#
                  watchlist = list(train = dtrain),
-                 print_every_n = 50)
+                 print_every_n = 50)#396
 
 
 my_preds <- predict(gbdt, dtest, reshape = TRUE)
