@@ -27,6 +27,28 @@ data.frame(miss=miss_pct, var=names(miss_pct), row.names=NULL) %>%
   labs(x='', y='% missing', title='Percent missing data by feature') +
   theme(axis.text.x=element_text(angle=90, hjust=1))
 
+##
+
+traindata$date <- as.POSIXct(strptime(traindata$timestamp, format = "%Y-%m-%d"))
+traindata$day <- as.integer(format(traindata$date, "%d")) # day
+traindata$month <- as.factor(format(traindata$date, "%m")) # month
+traindata$year <- as.integer(format(traindata$date, "%Y")) # year
+traindata$weekday <- as.factor(format(traindata$date, "%u")) # weekday
+traindata$yearmonth <- paste0(traindata$year, traindata$month)
+traindata$timestamp <- NULL
+traindata$date <- NULL
+
+
+
+ggplot(data = traindata, aes(x = as.factor(day), y = price_doc)) + geom_boxplot(fill = "#5C7457") + labs(title = "Date of the month vs Price", x = "Date", y = "Price")
+ggplot(data = traindata, aes(x = as.factor(month), y = price_doc)) + geom_boxplot(fill = "#EAC435") + labs(title = "Month vs Price", x = "Month", y = "Price")
+ggplot(data = traindata, aes(x = as.factor(year), y = price_doc)) + 
+  geom_boxplot(fill = "#345995") +
+  coord_cartesian(ylim = c(0,10000000)) + labs(title = "Year vs Price", x = "Year", y = "Price")
+
+ggplot(data = traindata, aes(x = as.factor(weekday), y = price_doc)) + geom_boxplot(fill = "#E40066") + labs(title = "Day of the week vs Price", x = "Day", y = "Price")
+
+
 ## Build year
 traindata %>% 
   filter(build_year > 1691 & build_year < 2018) %>% 
