@@ -34,15 +34,24 @@ traindata %>%
   geom_histogram(fill='lightblue') + 
   ggtitle('Distribution of build year')
 
+## Build year and price relation
+traindata %>% 
+  filter(build_year > 1691 & build_year < 2018) %>%
+  group_by(build_year) %>% 
+  summarize(mean_build_price=mean(price_doc)) %>%
+  ggplot(aes(x=build_year, y=mean_build_price)) +
+  geom_line(stat='identity', color='darkblue') + 
+  geom_smooth(color='darkgrey') +
+  ggtitle('Mean price by year of build')
 
 # room count
 ggplot(aes(x=num_room), data=traindata) + 
-  geom_histogram(fill='red', bins=20) + 
+  geom_histogram(fill='lightblue', bins=20) + 
   ggtitle('Distribution of room count')
 
 # sales type
 ggplot(aes(x=price_doc), data=traindata) + 
-  geom_density(fill='red', color='red') + 
+  geom_density(fill='lightblue', color='lightblue') + 
   facet_grid(~product_type) + 
   scale_x_continuous(trans='log')
 
@@ -50,5 +59,5 @@ ggplot(aes(x=price_doc), data=traindata) +
 traindata %>% 
   filter(build_year > 1691 & build_year < 2018) %>% 
   ggplot(aes(x=build_year)) + 
-  geom_histogram(fill='red', bins=10) + 
+  geom_histogram(fill='lightblue', bins=10) + 
   ggtitle('Distribution of build year')
