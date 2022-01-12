@@ -31,7 +31,6 @@ Rscript code/your_script.R --input data/training --output results/performance.ts
 ### data
 
 * Source:
-    * Sberbank Russian Housing Market
     * [Sberbank Russian Housing Market](https://www.kaggle.com/c/sberbank-russian-housing-market)
 * Input format:
     * Three .csv file:
@@ -41,7 +40,7 @@ Rscript code/your_script.R --input data/training --output results/performance.ts
     * Features of dataset:
 
         Our predict target is "predict_doc" variable.
-    This dataset provide large number of data, including house feature like area, floors and location.
+    This dataset provide large number of data, including house feature like area, floors and location and there is more than 30000 datas and nearly 300 parameter in this dataset.
     
         It also give us environmental data like green land, coffee shop nearby and how many road near this asset.
     One file call "macro.csv" even provide the government economic data like GDP in Russia or labor income, etc
@@ -57,10 +56,15 @@ Rscript code/your_script.R --input data/training --output results/performance.ts
 ### code
 
 * Which method do you use?
+    * randomforest
+    * xgboost ✓ ( The Best )
 * What is a null model for comparison?
+    * randomforest & xgboost without model tuning
 * How do your perform evaluation? ie. cross-validation, or addtional indepedent data set
+    * k-fold Cross-validation
+    * addtional indepedent data set(the test dataset)
 
-### results
+### results (need updated)
 
 * Which metric do you use 
   * precision, recall, R-square
@@ -72,5 +76,28 @@ Rscript code/your_script.R --input data/training --output results/performance.ts
     * [Data Pre-processing](https://www.kaggle.com/arathee2/creating-some-useful-additional-features)
     * [Data Pre-processing 2](https://www.kaggle.com/creatrol/basic-time-series-analysis-feature-selection)
     * [Data Pre-processing 3](https://www.kaggle.com/captcalculator/a-very-extensive-sberbank-exploratory-analysis)
+    * [Data Modeling 1](https://rpubs.com/skydome20/R-Note16-Ensemble_Learning)
+    * [Data Modeling 2](https://www.kaggle.com/keerthip/random-forest)
+    * [Data Modeling 3](https://www.kaggle.com/abhishekkant/another-xgb-model)
+    * [Data Modeling 4](https://medium.com/analytics-vidhya/root-mean-square-log-error-rmse-vs-rmlse-935c6cc1802a)
 * Packages you use
+```R
+library(randomForest)
+library(xgboost)
+library(ggplot2)
+library(readr) 
+library(caret)
+library(dummies)
+library(vegan)
+library(DMwR)
+library(ggplot2) # Data visualization
+library(readr) # CSV file I/O, e.g. the read_csv function
+library(data.table)
+library(lubridate)
+library(methods)
+library(tidyverse)
+library(scales)
+library(corrplot)
+library(DT)
+```
 * Related publications
