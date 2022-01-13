@@ -65,9 +65,11 @@ Rscript code/your_script.R --input data/training --output results/performance.ts
 ### results (need updated)
 
 * Which metric do you use 
-  * precision, recall, R-square
+  * RMSE, RMSLE
 * Is your improvement significant?
+  * about 1% more on accuracy
 * What is the challenge part of your project?
+  * choose model for this dataset
 
 ## References
 * Code/implementation which you include/reference (__You should indicate in your presentation if you use code for others. Otherwise, cheating will result in 0 score for final project.__)
