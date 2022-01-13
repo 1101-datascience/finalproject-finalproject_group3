@@ -23,10 +23,8 @@ Rscript code/your_script.R --input data/training --output results/performance.ts
 ## Folder organization and its related information
 
 ### docs
-* Your presentation, 1101_datascience_FP_<yourID|groupName>.ppt/pptx/pdf, by **Jan. 13**
-* Any related document for the final project
-  * papers
-  * software user guide
+* 1101_datascience_FP_group3.pptx
+* 1101_datascience_FP_group3.pdf
 
 ### data
 
