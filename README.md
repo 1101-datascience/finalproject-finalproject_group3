@@ -16,7 +16,7 @@ Giving us dataset, our goal is predicting the price of those asset.
 ### Demo 
 You should provide an example commend to reproduce your result
 ```R
-Rscript code/your_script.R --input data/training --output results/performance.tsv
+Rscript code/DSfinal_xgb_fix.R
 ```
 * any on-line visualization
 
